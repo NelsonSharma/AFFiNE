@@ -935,7 +935,7 @@ __metadata:
     "@google-cloud/opentelemetry-cloud-trace-exporter": "npm:^2.4.1"
     "@google-cloud/opentelemetry-resource-util": "npm:^2.4.0"
     "@modelcontextprotocol/sdk": "npm:^1.24.3"
-    "@nestjs-cls/transactional": "npm:^2.6.1"
+    "@nestjs-cls/transactional": "npm:^3.0.0"
     "@nestjs-cls/transactional-adapter-prisma": "npm:^1.2.19"
     "@nestjs/apollo": "npm:^13.0.4"
     "@nestjs/bullmq": "npm:^11.0.2"
@@ -9388,16 +9388,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs-cls/transactional@npm:^2.6.1":
-  version: 2.7.0
-  resolution: "@nestjs-cls/transactional@npm:2.7.0"
+"@nestjs-cls/transactional@npm:^3.0.0":
+  version: 3.1.1
+  resolution: "@nestjs-cls/transactional@npm:3.1.1"
   peerDependencies:
     "@nestjs/common": ">= 10 < 12"
     "@nestjs/core": ">= 10 < 12"
-    nestjs-cls: ^5.4.3
+    nestjs-cls: ^6.1.0
     reflect-metadata: "*"
     rxjs: ">= 7"
-  checksum: 10/172f121c279507ec46250197b70fd194d68efd4e0c4baf0c4d38d105cbdda46ee9c42b9123df7e35f55d1a276b4b117bcab66f40772a44f083eb997e83e67ac4
+  checksum: 10/cf09060ef7363172665846ab31eb3177400b38568ea617777e2dfbdaad908c8e7731e2e24966bc7a6dc8554e0ce09d35f99cf466ea28bd8c58288adda911fc60
   languageName: node
   linkType: hard
 
