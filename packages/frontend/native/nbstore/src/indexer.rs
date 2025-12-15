@@ -1,18 +1,16 @@
-mod types;
-
-use super::{
-  error::{Error, Result},
-  storage::SqliteDocStorage,
-};
-use affine_common::doc_parser::{BlockInfo, CrawlResult};
 use affine_common::{
-  doc_parser::{parse_doc_from_binary, ParseError},
+  doc_parser::{parse_doc_from_binary, BlockInfo, CrawlResult, ParseError},
   indexer::SnapshotData,
 };
 use napi_derive::napi;
 use serde::Serialize;
 use sqlx::Row;
 use y_octo::DocOptions;
+
+use super::{
+  error::{Error, Result},
+  storage::SqliteDocStorage,
+};
 
 #[napi(object)]
 #[derive(Debug, Serialize)]
@@ -88,8 +86,8 @@ pub struct NativeMatch {
 impl From<(u32, u32)> for NativeMatch {
   fn from(value: (u32, u32)) -> Self {
     Self {
-      start: value.0 as u32,
-      end: value.1 as u32,
+      start: value.0,
+      end: value.1,
     }
   }
 }
