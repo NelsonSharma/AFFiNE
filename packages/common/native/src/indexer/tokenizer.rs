@@ -1,5 +1,6 @@
 use jieba_rs::Jieba;
 use once_cell::sync::Lazy;
+use pinyin::ToPinyin;
 use tiniestsegmenter::tokenize as ts_tokenize;
 
 static JIEBA: Lazy<Jieba> = Lazy::new(Jieba::new);
@@ -62,7 +63,7 @@ pub fn tokenize(text: &str) -> Vec<Token> {
         if is_hangul(next) {
           let next_len = next.len_utf8();
           tokens.push(Token {
-            term: format!("{}{}", c, next).to_lowercase(),
+            term: format!("{c}{next}").to_lowercase(),
             start: byte_offset,
             end: byte_offset + char_len + next_len,
           });
@@ -73,6 +74,52 @@ pub fn tokenize(text: &str) -> Vec<Token> {
   }
 
   tokens
+}
+
+pub fn contains_chinese_chars(term: &str) -> bool {
+  term.chars().any(is_cjk)
+}
+
+pub fn build_pinyin_variants(term: &str) -> Option<(String, String)> {
+  let mut full = String::new();
+  let mut initials = String::new();
+  let mut has_pinyin = false;
+
+  for py in term.to_pinyin().flatten() {
+    full.push_str(py.plain());
+    initials.push_str(py.first_letter());
+    has_pinyin = true;
+  }
+
+  if has_pinyin {
+    Some((full, initials))
+  } else {
+    None
+  }
+}
+
+pub fn generate_trigrams(term: &str) -> Vec<String> {
+  let chars: Vec<char> = term.chars().collect();
+  if chars.len() < 3 {
+    return Vec::new();
+  }
+  chars
+    .windows(3)
+    .map(|window| window.iter().collect())
+    .collect()
+}
+
+fn is_cjk(c: char) -> bool {
+  matches!(
+    c,
+    '\u{3400}'..='\u{4DBF}'
+      | '\u{4E00}'..='\u{9FFF}'
+      | '\u{F900}'..='\u{FAFF}'
+      | '\u{20000}'..='\u{2A6DF}'
+      | '\u{2A700}'..='\u{2B73F}'
+      | '\u{2B740}'..='\u{2B81F}'
+      | '\u{2B820}'..='\u{2CEAF}'
+  )
 }
 
 fn is_hangul(c: char) -> bool {

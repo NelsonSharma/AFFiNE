@@ -1,5 +1,6 @@
 use std::sync::Arc;
 
+use affine_common::indexer::InMemoryIndex;
 use affine_schema::get_migrator;
 use sqlx::{
   migrate::MigrateDatabase,
@@ -8,7 +9,7 @@ use sqlx::{
 };
 use tokio::sync::RwLock;
 
-use super::{error::Result, indexer::InMemoryIndex};
+use super::error::Result;
 
 pub struct SqliteDocStorage {
   pub pool: Pool<Sqlite>,

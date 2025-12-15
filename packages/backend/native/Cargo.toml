@@ -11,6 +11,7 @@ crate-type = ["cdylib"]
 affine_common = { workspace = true, features = [
   "doc-loader",
   "hashcash",
+  "memory-indexer",
   "ydoc-loader",
 ] }
 chrono = { workspace = true }

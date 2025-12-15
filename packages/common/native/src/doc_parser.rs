@@ -171,7 +171,7 @@ pub fn parse_doc_to_markdown(
 
     if flavour == "affine:database" {
       let title = get_string(block, "prop:title").unwrap_or_default();
-      markdown.push_str(&format!("\n### {}\n", title));
+      markdown.push_str(&format!("\n### {title}\n"));
 
       let columns_array = block.get("prop:columns").and_then(|v| v.to_array());
       let cells_map = block.get("prop:cells").and_then(|v| v.to_map());
@@ -240,10 +240,7 @@ pub fn parse_doc_to_markdown(
     }
 
     if ai_editable && parent_block_id.as_ref() == Some(&root_block_id) {
-      markdown.push_str(&format!(
-        "<!-- block_id={} flavour={} -->\n",
-        block_id, flavour
-      ));
+      markdown.push_str(&format!("<!-- block_id={block_id} flavour={flavour} -->\n"));
     }
 
     if flavour == "affine:paragraph" {

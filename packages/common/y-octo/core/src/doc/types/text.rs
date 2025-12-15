@@ -33,7 +33,7 @@ impl Display for Text {
   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
     self.iter_item().try_for_each(|item| {
       if let Content::String(str) = &item.get().unwrap().content {
-        write!(f, "{}", str)
+        write!(f, "{str}")
       } else {
         Ok(())
       }
